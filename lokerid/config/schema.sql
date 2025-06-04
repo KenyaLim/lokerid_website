@@ -73,6 +73,15 @@ CREATE TABLE job_applications (
     UNIQUE KEY unique_application (job_listing_id, job_seeker_id)
 );
 
+-- untuk profile
+ALTER TABLE users ADD COLUMN IF NOT EXISTS phone VARCHAR(20);
+ALTER TABLE users ADD COLUMN IF NOT EXISTS location VARCHAR(255);
+ALTER TABLE users ADD COLUMN IF NOT EXISTS skills TEXT;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS experience TEXT;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS education TEXT;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS bio TEXT;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS profile_picture VARCHAR(255);
+
 -- Insert sample job categories
 INSERT INTO job_categories (name) VALUES 
 ('IT'),
