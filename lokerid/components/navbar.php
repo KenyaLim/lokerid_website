@@ -13,8 +13,8 @@ function isJobSeeker() {
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgba(13, 110, 253, 0.7); backdrop-filter: blur(10px);">
     <div class="container">
-        <a class="navbar-brand" href="<?php echo isCompany() ? '/codekeni/lokerid/company/dashboard.php' : '/codekeni/lokerid/index.php'; ?>">
-            <img src="/codekeni/lokerid/img/logo.png" alt="LokerID Logo" height="60" style="object-fit: contain;" class="d-inline-block align-text-top me-2">
+        <a class="navbar-brand" href="<?php echo isCompany() ? '/lokerid_website/lokerid/company/dashboard.php' : '/lokerid_website/lokerid/index.php'; ?>">
+            <img src="/lokerid_website/lokerid/img/logo.png" alt="LokerID Logo" height="60" style="object-fit: contain;" class="d-inline-block align-text-top me-2">
             <span class="fs-5">LokerID</span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -49,7 +49,7 @@ function isJobSeeker() {
                                 <li><a class="dropdown-item" href="profile.php">My Profile</a></li>
                                 <li><a class="dropdown-item" href="my-applications.php">My Applications</a></li>                            <?php endif; ?>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/codekeni/lokerid/logout.php">Logout</a></li>
+                            <li><a class="dropdown-item" href="/lokerid_website/lokerid/logout.php">Logout</a></li>
                         </ul>
                     </li>
                 <?php else: ?>
