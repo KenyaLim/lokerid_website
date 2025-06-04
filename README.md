@@ -8,3 +8,5 @@ How To Buka Filenya.
 3. Ke htdocs...
 4. NYALAIN XAMPP!
 5. Iya
+
+Im so sigma
