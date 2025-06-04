@@ -132,7 +132,7 @@ if (!$job) {
                 <?php if (isset($_SESSION['user_id']) && $_SESSION['user_role'] == 'job_seeker'): ?>
                     <div class="card">
                         <div class="card-body">
-                            <a href="apply.php?job_id=<?php echo $job['id']; ?>" class="btn btn-primary btn-lg w-100">
+                            <a href="apply.php?id=<?php echo $job['id']; ?>" class="btn btn-primary btn-lg w-100">
                                 Apply Now
                             </a>
                         </div>
