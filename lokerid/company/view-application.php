@@ -303,7 +303,7 @@ if (!$application) {
                 <?php endif; ?>
 
                 <!-- Files Section -->
-                <div class="card mb-4">
+                 <div class="card mb-4">
                     <div class="card-header">
                         <h5 class="mb-0">Application Files</h5>
                     </div>
@@ -316,7 +316,7 @@ if (!$application) {
                                     <i class="fas fa-file-pdf fa-2x text-danger me-3"></i>
                                     <div>
                                         <p class="mb-1"><strong>CV/Resume</strong></p>
-                                        <a href="<?php echo htmlspecialchars($application['cv_path'] ?? $application['cv_file']); ?>" 
+                                        <a href="../download.php?file=<?php echo $application['id']; ?>&type=cv" 
                                            target="_blank" class="btn btn-outline-primary btn-sm">
                                             <i class="fas fa-download"></i> Download
                                         </a>
@@ -332,7 +332,7 @@ if (!$application) {
                                     <i class="fas fa-folder fa-2x text-info me-3"></i>
                                     <div>
                                         <p class="mb-1"><strong>Portfolio</strong></p>
-                                        <a href="<?php echo htmlspecialchars($application['portfolio_path'] ?? $application['portfolio_file']); ?>" 
+                                        <a href="../download.php?file=<?php echo $application['id']; ?>&type=portfolio" 
                                            target="_blank" class="btn btn-outline-primary btn-sm">
                                             <i class="fas fa-download"></i> Download
                                         </a>
@@ -348,7 +348,7 @@ if (!$application) {
                                     <i class="fas fa-file-alt fa-2x text-success me-3"></i>
                                     <div>
                                         <p class="mb-1"><strong>Cover Letter</strong></p>
-                                        <a href="<?php echo htmlspecialchars($application['cover_letter_path'] ?? $application['cover_letter_file']); ?>" 
+                                        <a href="../download.php?file=<?php echo $application['id']; ?>&type=cover_letter" 
                                            target="_blank" class="btn btn-outline-primary btn-sm">
                                             <i class="fas fa-download"></i> Download
                                         </a>
