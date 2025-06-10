@@ -118,9 +118,6 @@ $rootUrl = ($currentDir === 'company') ? '../' : '';
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <?php if ($_SESSION['user_role'] == 'company'): ?>
-                                <li><a class="dropdown-item" href="<?php echo ($currentDir === 'company') ? 'profile.php' : 'company/profile.php'; ?>">
-                                    <i class="fas fa-building me-2"></i>Company Profile
-                                </a></li>
                                 <li><a class="dropdown-item" href="<?php echo ($currentDir === 'company') ? 'create-job.php' : 'company/create-job.php'; ?>">
                                     <i class="fas fa-plus me-2"></i>Create Job
                                 </a></li>
