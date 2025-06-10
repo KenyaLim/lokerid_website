@@ -82,6 +82,16 @@ ALTER TABLE users ADD COLUMN IF NOT EXISTS education TEXT;
 ALTER TABLE users ADD COLUMN IF NOT EXISTS bio TEXT;
 ALTER TABLE users ADD COLUMN IF NOT EXISTS profile_picture VARCHAR(255);
 
+-- view-application
+-- Add status column to job_applications table
+ALTER TABLE job_applications 
+ADD COLUMN status ENUM('pending', 'reviewed', 'accepted', 'rejected') 
+DEFAULT 'pending' AFTER applied_at;
+
+-- Optional: Update existing records to have default status
+UPDATE job_applications SET status = 'pending' WHERE status IS NULL;
+
+
 -- Insert sample job categories
 INSERT INTO job_categories (name) VALUES 
 ('IT'),
