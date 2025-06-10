@@ -1,0 +1,65 @@
+Rubrik penilaian
+
+halaman utama
+- Menampilkan semua keterangan SEMUA lowongan pada halaman awal kecuali yang sudah melewati tanggal batas lamaran(2 poin)
+
+fungsi search
+- Fungsi search bekerja minimal tiga ketentuan ( Nama Perusahaan, Kategori Pekerjaan, Lokasi, Jenis Pekerjaan, dan Rentang Gaji)
+(1 poin)
+Daftar lowongan akan ditampilkan dari tanggal konser yang paling baru (0.5)
+Daftar lowongan tertampil adalah yg belum melewati tanggal batas lamaran
+(0.5 poin)
+
+login logout
+- 1. Pada tampilan halaman utama memiliki button untuk login (0.5 poin)
+2. Jika klik tombol login, maka akan muncul atau menuju form login dengan username/ password (0.5 poin)
+3. Terdapat validasi login(0.5 poin)
+4. Berhasil login dari DB(0.5 poin)
+5. Berhasil simpan ke session, misal tulis nama user di halaman (1)
+6. Jika sudah login tombol login berubah jadi logout(0.5)
+7. Apabila user akses tanpa login, maka redirect ke halaman login. (1.5 poin)
+Full: 5 poin
+
+halaman detail lowongan
+- Detail lowongan sesuai dengan yang dipilih pengguna dari halaman awal (0.5 poin)
+- Detail lowongan diambil dari DB (1 poin)
+- Gambar tidak disimpan dengan tipe data blob tp menggunakan string (0.5 poin)
+- Terdapat link untuk menuju ke halaman pengajuan lamaran. Namun jika sudah pernah melamar tidak bisa masuk ke halaman pengajuan lowongan dan muncul pesan “Anda sudah pernah melamar LOWONGAN ini ” (1 poin)
+Full: 3 poin
+
+pengajuan lamaran
+1. Jika ingin membeli wajib untuk login terlebih dahulu. Jika belum login akan dibawa ke halaman login dahulu (0.5 poin)
+2. Hanya akun Pencari Kerja yang dapat mengakses halaman ini (0.5 poin)
+3. Halaman pengajuan lowongan akan menunjukkan nama nama perusahaan dan nama pekerjaan yang ingin dilamar (0.5 poin)
+4. Terdapat inputan untuk data diri (1 poin)
+a. Nama Lengkap
+b. Tanggal Lahir
+c. Email (langsung ambil dr akun pencari kerja)
+d. Nomor HP
+e. CV (dalam format PDF/DOCX)
+f. Portofolio (opsional, dalam format PDF)
+g. Surat Lamaran (opsional)
+5. File Terdapat validasi inputan (1 poin)
+a. Maksimal file yang bisa diupload adalah 5MB
+6. Jika di submit, maka (1.5 poin)
+a. Data pengajuan lamaran masuk ke DB
+b. File tidak boleh masuk ke DB, hanya alamat lokasinya yg disimpan di DB
+Full: 5 poin
+
+halaman dashboard
+1. Jika ingin membeli wajib untuk login terlebih dahulu. Jika belum login akan dibawa ke halaman login dahulu (0.5 poin)
+2. Hanya akun Pencari Kerja yang dapat mengakses halaman ini (0.5 poin)
+3. Dashboard menampilkan jumlah total lowongan yang dimiliki perusahaan (0.5 poin)
+4. Dashboard menampilkan jumlah pelamar untuk tiap lowongan yang diunggah perusahaan(0.5 poin)
+
+halaman pengelola lowongan
+1. Setiap perusahaan hanya bisa mengelola lowongan miliknya sendiri, tidak milik perusahaan lain (1 poin)
+2. Perusahaan dapat menambahkan lowongan baru ke sistem (1 poin)
+3. Perusahaan dapat mengedit/mengubah detail lowongan yang telah dibuat (1 poin)
+4. Perusahaan dapat menghapus lowongan yang telah dibuat (0.5 poin)
+● Jika lowongan sudah ada pelamar, maka tidak dapat dihapus (0.5 poin)
+5. Pada setiap detail lowongan yang dimiliki perusahaan, dapat menampilkan daftar pelamar yang melamar ke lowongan tersebut (1 poin)
+6. Perusahaan dapat melihat detail pelamar (1 poin)
+Full: 6 poin
+
+

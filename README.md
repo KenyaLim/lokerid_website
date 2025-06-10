@@ -9,5 +9,3 @@ How To Buka Filenya.
 4. NYALAIN XAMPP!
 5. Iya
 
-Im so sigma
-Test
