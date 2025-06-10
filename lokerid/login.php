@@ -11,8 +11,29 @@ if (isset($_POST['login'])) {
     $stmt->execute([$email]);
     $user = $stmt->fetch();
 
-    // Verifikasi password menggunakan password_verify()
-    if ($user && password_verify($password, $user['password'])) {
+    // Verifikasi password - support untuk password lama (tidak terenkripsi) dan baru (terenkripsi)
+    $passwordValid = false;
+    
+    if ($user) {
+        // Cek apakah password sudah terenkripsi (menggunakan password_hash)
+        // Password hash biasanya dimulai dengan $2y$ atau $2a$ atau $2x$ (bcrypt)
+        if (password_get_info($user['password'])['algo'] !== null) {
+            // Password sudah terenkripsi, gunakan password_verify
+            $passwordValid = password_verify($password, $user['password']);
+        } else {
+            // Password belum terenkripsi (data lama), bandingkan langsung
+            $passwordValid = ($password === $user['password']);
+            
+            // Optional: Update password lama ke format terenkripsi
+            if ($passwordValid) {
+                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                $updateStmt = $conn->prepare("UPDATE users SET password = ? WHERE id = ?");
+                $updateStmt->execute([$hashedPassword, $user['id']]);
+            }
+        }
+    }
+    
+    if ($user && $passwordValid) {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_role'] = $user['role'];
         $_SESSION['user_email'] = $user['email'];
