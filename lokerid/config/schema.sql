@@ -73,6 +73,9 @@ CREATE TABLE job_applications (
     UNIQUE KEY unique_application (job_listing_id, job_seeker_id)
 );
 
+-- Add full_name column to users table
+ALTER TABLE users ADD COLUMN full_name VARCHAR(255) AFTER email;
+
 -- untuk profile
 ALTER TABLE users ADD COLUMN IF NOT EXISTS phone VARCHAR(20);
 ALTER TABLE users ADD COLUMN IF NOT EXISTS location VARCHAR(255);
