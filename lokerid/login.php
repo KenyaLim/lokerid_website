@@ -4,11 +4,15 @@ require_once 'config/database.php';
 
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
-    $password = $_POST['password'];    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ? AND password = ?");
-    $stmt->execute([$email, $password]);
+    $password = $_POST['password'];
+    
+    // Query untuk mendapatkan user berdasarkan email saja
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt->execute([$email]);
     $user = $stmt->fetch();
 
-    if ($user) {
+    // Verifikasi password menggunakan password_verify()
+    if ($user && password_verify($password, $user['password'])) {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_role'] = $user['role'];
         $_SESSION['user_email'] = $user['email'];
@@ -37,7 +41,8 @@ if (isset($_POST['login'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - LokerID</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -75,7 +80,9 @@ if (isset($_POST['login'])) {
                 </div>
             </div>
         </div>
-    </div>    <?php include 'components/footer.php'; ?>
+    </div>
+    
+    <?php include 'components/footer.php'; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

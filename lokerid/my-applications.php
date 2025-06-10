@@ -10,30 +10,14 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'job_seeker') {
 // Get user ID from session
 $user_id = $_SESSION['user_id'];
 
-// Debug mode - set to false in production
-$debugMode = true;
-
-if ($debugMode) {
-    error_log("=== MY APPLICATIONS DEBUG ===");
-    error_log("User ID: " . $user_id);
-    error_log("User Role: " . $_SESSION['user_role']);
-}
+// Debug mode disabled for production
+$debugMode = false;
 
 // First, check what columns exist in job_applications table
 $applications = [];
 $job_seeker_id = null;
 
 try {
-    // Get table structure for debugging
-    if ($debugMode) {
-        $stmt = $conn->query("DESCRIBE job_applications");
-        $columns = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        error_log("=== JOB_APPLICATIONS TABLE STRUCTURE ===");
-        foreach ($columns as $column) {
-            error_log("Column: " . $column['Field'] . " | Type: " . $column['Type']);
-        }
-    }
-
     // Try to get job_seeker_id from job_seekers table if it exists
     try {
         $stmt = $conn->prepare("SELECT id FROM job_seekers WHERE user_id = ?");
@@ -41,12 +25,9 @@ try {
         $job_seeker_data = $stmt->fetch();
         if ($job_seeker_data) {
             $job_seeker_id = $job_seeker_data['id'];
-            if ($debugMode) error_log("Found job_seeker_id: " . $job_seeker_id);
-        } else {
-            if ($debugMode) error_log("No job_seeker record found for user_id: " . $user_id);
         }
     } catch (Exception $e) {
-        if ($debugMode) error_log("Error getting job_seeker_id: " . $e->getMessage());
+        // Silent error in production
     }
 
     // Strategy 1: Try with job_seeker_id if available
@@ -68,15 +49,7 @@ try {
             ");
             $stmt->execute([$job_seeker_id]);
             $applications = $stmt->fetchAll();
-            
-            if ($debugMode) {
-                error_log("Query with job_seeker_id returned " . count($applications) . " applications");
-                if (!empty($applications)) {
-                    error_log("Sample application data: " . print_r(array_keys($applications[0]), true));
-                }
-            }
         } catch (Exception $e) {
-            if ($debugMode) error_log("Error with job_seeker_id query: " . $e->getMessage());
             $applications = [];
         }
     }
@@ -100,15 +73,7 @@ try {
             ");
             $stmt->execute([$user_id]);
             $applications = $stmt->fetchAll();
-            
-            if ($debugMode) {
-                error_log("Query with user_id returned " . count($applications) . " applications");
-                if (!empty($applications)) {
-                    error_log("Sample application data: " . print_r(array_keys($applications[0]), true));
-                }
-            }
         } catch (Exception $e) {
-            if ($debugMode) error_log("Error with user_id query: " . $e->getMessage());
             $applications = [];
         }
     }
@@ -138,36 +103,15 @@ try {
                 
                 if (!empty($tempApps)) {
                     $applications = $tempApps;
-                    if ($debugMode) error_log("Found applications using column: $colName");
                     break;
                 }
             } catch (Exception $e) {
-                if ($debugMode) error_log("Column $colName doesn't exist or error: " . $e->getMessage());
                 continue;
             }
         }
     }
 
-    // If still no applications, let's check what data exists
-    if (empty($applications) && $debugMode) {
-        try {
-            $stmt = $conn->query("SELECT COUNT(*) FROM job_applications");
-            $totalApps = $stmt->fetchColumn();
-            error_log("Total applications in database: " . $totalApps);
-            
-            if ($totalApps > 0) {
-                $stmt = $conn->query("SELECT * FROM job_applications LIMIT 1");
-                $sampleApp = $stmt->fetch(PDO::FETCH_ASSOC);
-                error_log("Sample application columns: " . print_r(array_keys($sampleApp), true));
-                error_log("Sample application data: " . print_r($sampleApp, true));
-            }
-        } catch (Exception $e) {
-            error_log("Error checking total applications: " . $e->getMessage());
-        }
-    }
-
 } catch (Exception $e) {
-    if ($debugMode) error_log("General error in my-applications.php: " . $e->getMessage());
     $applications = [];
 }
 
@@ -185,11 +129,6 @@ function getStatusBadgeClass($status) {
 // Function to get status display text
 function getStatusText($status) {
     return ucfirst(strtolower($status));
-}
-
-// Debug output (remove in production)
-if ($debugMode) {
-    error_log("Final applications count: " . count($applications));
 }
 ?>
 
@@ -215,16 +154,6 @@ if ($debugMode) {
                         <i class="fas fa-search me-2"></i>Find More Jobs
                     </a>
                 </div>
-
-                <?php if ($debugMode && empty($applications)): ?>
-                    <div class="alert alert-info">
-                        <h6>Debug Information:</h6>
-                        <p><strong>User ID:</strong> <?php echo $user_id; ?></p>
-                        <p><strong>Job Seeker ID:</strong> <?php echo $job_seeker_id ?? 'Not found'; ?></p>
-                        <p><strong>User Role:</strong> <?php echo $_SESSION['user_role']; ?></p>
-                        <p><em>Check browser console or server logs for detailed debug information.</em></p>
-                    </div>
-                <?php endif; ?>
 
                 <?php if (empty($applications)): ?>
                     <div class="card text-center">
@@ -443,17 +372,5 @@ if ($debugMode) {
     <?php include 'components/footer.php'; ?>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <?php if ($debugMode): ?>
-    <script>
-        console.log('Debug Mode Active');
-        console.log('User ID: <?php echo $user_id; ?>');
-        console.log('Job Seeker ID: <?php echo $job_seeker_id ?? "null"; ?>');
-        console.log('Applications Count: <?php echo count($applications); ?>');
-        <?php if (!empty($applications)): ?>
-        console.log('Sample Application:', <?php echo json_encode($applications[0]); ?>);
-        <?php endif; ?>
-    </script>
-    <?php endif; ?>
 </body>
 </html>

@@ -74,7 +74,7 @@ $rootUrl = ($currentDir === 'company') ? '../' : '';
                     <?php else: ?>
                         <li class="nav-item">
                             <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'jobs.php') ? 'active' : ''; ?>" 
-                               href="<?php echo $rootUrl; ?>jobs.php">Browse Jobs</a>
+                               href="<?php echo $rootUrl; ?>index.php">Browse Jobs</a>
                         </li>
                     <?php endif; ?>
                 <?php endif; ?>
