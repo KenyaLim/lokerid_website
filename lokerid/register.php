@@ -265,4 +265,5 @@ if (isset($_POST['register'])) {
         document.querySelector('input[name="role"]:checked').dispatchEvent(new Event('change'));
     </script>
 </body>
+    <?php include 'components/footer.php'; ?>
 </html>

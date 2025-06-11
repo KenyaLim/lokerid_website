@@ -159,9 +159,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($_POST['phone_number'])) $errors[] = "Phone number is required";
     if (!isset($_FILES['cv_file']) || $_FILES['cv_file']['error'] != 0) $errors[] = "CV is required";
 
-    // Validate file uploads
+    // Validate file uploads - UPDATED TO 5MB LIMIT
     $allowedExtensions = ['pdf'];
-    $maxSize = 10 * 1024 * 1024; // 10MB
+    $maxSize = 5 * 1024 * 1024; // 5MB (changed from 10MB)
 
     // CV validation
     if (isset($_FILES['cv_file']) && $_FILES['cv_file']['error'] == 0) {
@@ -170,7 +170,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $errors[] = "CV must be in PDF format";
         }
         if ($_FILES['cv_file']['size'] > $maxSize) {
-            $errors[] = "CV file size must be less than 10MB";
+            $errors[] = "CV file size must be less than 5MB";
         }
     }
 
@@ -181,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $errors[] = "Portfolio must be in PDF format";
         }
         if ($_FILES['portfolio_file']['size'] > $maxSize) {
-            $errors[] = "Portfolio file size must be less than 10MB";
+            $errors[] = "Portfolio file size must be less than 5MB";
         }
     }
 
@@ -192,7 +192,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $errors[] = "Cover letter must be in PDF format";
         }
         if ($_FILES['cover_letter_file']['size'] > $maxSize) {
-            $errors[] = "Cover letter file size must be less than 10MB";
+            $errors[] = "Cover letter file size must be less than 5MB";
         }
     }
 
@@ -397,7 +397,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     </label>
                                     <input type="file" class="form-control" id="cv_file" name="cv_file" accept=".pdf" required>
                                     <div class="invalid-feedback">Please upload your CV in PDF format.</div>
-                                    <small class="text-muted">Max size: 10MB</small>
+                                    <small class="text-muted">Max size: 5MB</small>
                                 </div>
 
                                 <div class="col-md-4 mb-3">
@@ -405,7 +405,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <i class="fas fa-folder me-2"></i>Portfolio (PDF)
                                     </label>
                                     <input type="file" class="form-control" id="portfolio_file" name="portfolio_file" accept=".pdf">
-                                    <small class="text-muted">Optional, Max size: 10MB</small>
+                                    <small class="text-muted">Optional, Max size: 5MB</small>
                                 </div>
 
                                 <div class="col-md-4 mb-3">
@@ -413,7 +413,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <i class="fas fa-file-alt me-2"></i>Cover Letter (PDF)
                                     </label>
                                     <input type="file" class="form-control" id="cover_letter_file" name="cover_letter_file" accept=".pdf">
-                                    <small class="text-muted">Optional, Max size: 10MB</small>
+                                    <small class="text-muted">Optional, Max size: 5MB</small>
                                 </div>
 
                                 <div class="col-md-6 mb-3">
@@ -485,7 +485,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         });
     })();
 
-    // File upload validation
+    // File upload validation - UPDATED TO 5MB LIMIT
     document.querySelectorAll('input[type="file"]').forEach(input => {
         input.addEventListener('change', function() {
             const file = this.files[0];
@@ -493,8 +493,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 alert('Please select a PDF file only.');
                 this.value = '';
             }
-            if (file && file.size > 10 * 1024 * 1024) { // 10MB limit
-                alert('File size too large. Please select a file smaller than 10MB.');
+            if (file && file.size > 5 * 1024 * 1024) { // 5MB limit (changed from 10MB)
+                alert('File size too large. Please select a file smaller than 5MB.');
                 this.value = '';
             }
         });
