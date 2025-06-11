@@ -16,7 +16,6 @@ if (!isset($_GET['id'])) {
 
 $jobId = $_GET['id'];
 
-// First, let's see what's in the job_applications table
 $debugMode = true; // Set to false in production
 
 if ($debugMode) {
