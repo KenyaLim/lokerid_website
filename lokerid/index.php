@@ -179,10 +179,6 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <?php include 'components/footer.php'; ?>
     
-    <!-- Theme Toggle Button -->
-    <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">
-        <i class="fas fa-moon"></i>
-    </button>
 
     <!-- Login Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1">
